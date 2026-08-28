@@ -18,13 +18,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.watch<ThemeProvider>();
+    final themeMode = context.watch<ThemeProvider>().themeMode;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'News App',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: theme.themeMode,
+      themeMode: themeMode,
       home: HomeScreen(),
     );
   }

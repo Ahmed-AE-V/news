@@ -9,12 +9,13 @@ class AppTheme {
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.lightBackground,
       primaryColor: AppColors.black,
-      cardColor: AppColors.lightCard,
+      cardColor: AppColors.darkCard,
       dividerColor: AppColors.strokeLight,
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.lightBackground,
         foregroundColor: AppColors.textPrimaryLight,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
       ),
       textTheme: const TextTheme(
@@ -31,10 +32,11 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.buttonOverlay,
+          padding: EdgeInsets.zero,
+          backgroundColor: AppColors.darkbuttonOverlay,
           foregroundColor: AppColors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(84),
           ),
         ),
       ),
@@ -56,12 +58,12 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.darkBackground,
       primaryColor: AppColors.white,
-      cardColor: AppColors.darkCard,
       dividerColor: AppColors.strokeDark,
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.darkBackground,
         foregroundColor: AppColors.textPrimaryDark,
-        elevation: 0,
+        // elevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
       ),
       textTheme: const TextTheme(
@@ -78,14 +80,16 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.buttonOverlay,
+          padding: EdgeInsets.zero,
+          backgroundColor: AppColors.darkbuttonOverlay,
           foregroundColor: AppColors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(84),
           ),
         ),
       ),
-      iconTheme: const IconThemeData(color: AppColors.textPrimaryDark),
+
+      // iconTheme: const IconThemeData(color: AppColors.darkBackground),
       dividerTheme: const DividerThemeData(
         color: AppColors.strokeDark,
         thickness: 1,
