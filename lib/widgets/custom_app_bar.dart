@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/constants/app_assets.dart';
+import 'package:news/screens/search_screen/search_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -12,11 +13,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        style: GoogleFonts.inter(fontSize: 20, fontWeight: .w500),
+        style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w500),
       ),
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const SearchScreen()),
+            );
+          },
           icon: SvgPicture.asset(AppAssets.searchIc),
         ),
       ],

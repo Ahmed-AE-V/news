@@ -12,8 +12,6 @@ class NewsApiServices {
       "https://newsapi.org/v2/top-headlines/sources",
       queryParameters: {
         "apiKey": "f0eae869c15d47589aca546bd262b432",
-        // NewsAPI only accepts lowercase category values
-        // (business, entertainment, general, health, science, sports, technology)
         "category": category.toLowerCase(),
       },
     );
@@ -27,6 +25,33 @@ class NewsApiServices {
       queryParameters: {
         "apiKey": "f0eae869c15d47589aca546bd262b432",
         "sources": sourceId,
+      },
+    );
+    final articlesResponse = ArticlesResponse.fromJson(response.data);
+    return articlesResponse.articles;
+  }
+
+  // Default list shown on the search screen before the user types anything.
+  Future<List<ArticleModel>> getTopHeadlines() async {
+    final response = await dio.get(
+      "https://newsapi.org/v2/top-headlines",
+      queryParameters: {
+        "apiKey": "f0eae869c15d47589aca546bd262b432",
+        "country": "us",
+      },
+    );
+    final articlesResponse = ArticlesResponse.fromJson(response.data);
+    return articlesResponse.articles;
+  }
+
+  // Full-text search across all articles for the given query.
+  Future<List<ArticleModel>> searchArticles(String query) async {
+    final response = await dio.get(
+      "https://newsapi.org/v2/everything",
+      queryParameters: {
+        "apiKey": "f0eae869c15d47589aca546bd262b432",
+        "q": query,
+        "sortBy": "publishedAt",
       },
     );
     final articlesResponse = ArticlesResponse.fromJson(response.data);
