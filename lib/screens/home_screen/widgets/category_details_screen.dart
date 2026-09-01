@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/dio_client.dart';
 import 'package:news/core/news_api_services.dart';
 import 'package:news/models/category_model.dart';
 import 'package:news/models/news_source_response.dart';
-import 'package:news/screens/category_details_screen/widgets/news_list_view.dart';
+import 'package:news/screens/home_screen/widgets/news_list_view.dart';
 
-class CategoryDetailsScreen extends StatefulWidget {
+class CategoryDetails extends StatefulWidget {
   final CategoryModel category;
-  const CategoryDetailsScreen({super.key, required this.category});
+  const CategoryDetails({super.key, required this.category});
 
   @override
-  State<CategoryDetailsScreen> createState() => _CategoryDetailsScreenState();
+  State<CategoryDetails> createState() => _CategoryDetailsScreenState();
 }
 
-class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
+class _CategoryDetailsScreenState extends State<CategoryDetails> {
   final NewsApiServices newsApiServices = NewsApiServices(DioClient.instance);
   late final Future<List<SourceModel>> sourcesFuture;
 
   @override
   void initState() {
     super.initState();
-    // Fetch once here only — build() just reads this same future,
-    // instead of starting a brand new request on every rebuild.
     sourcesFuture = newsApiServices.getSources(widget.category.name);
   }
 
@@ -47,6 +46,12 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
           child: Column(
             children: [
               TabBar(
+                labelStyle: GoogleFonts.inter(fontWeight: .w700, fontSize: 16),
+                unselectedLabelStyle: GoogleFonts.inter(
+                  fontWeight: .w500,
+                  fontSize: 14,
+                ),
+                dividerHeight: 0,
                 isScrollable: true,
                 tabAlignment: TabAlignment.start,
                 tabs: sources.map((source) => Tab(text: source.name)).toList(),

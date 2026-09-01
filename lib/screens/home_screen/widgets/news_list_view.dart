@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:news/core/dio_client.dart';
 import 'package:news/core/news_api_services.dart';
 import 'package:news/models/article_model.dart';
-import 'package:news/screens/category_details_screen/widgets/news_item.dart';
+import 'package:news/screens/home_screen/widgets/news_item.dart';
 
 class NewsListView extends StatefulWidget {
   final String sourceId;
@@ -24,8 +24,6 @@ class _NewsListViewState extends State<NewsListView>
     articlesFuture = newsApiServices.getArticles(widget.sourceId);
   }
 
-  // Keeps this tab's fetched articles alive when switching tabs,
-  // instead of re-fetching every time you swipe back to it.
   @override
   bool get wantKeepAlive => true;
 

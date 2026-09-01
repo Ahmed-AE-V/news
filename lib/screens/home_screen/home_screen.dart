@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:news/constants/app_assets.dart';
 import 'package:news/models/category_model.dart';
 import 'package:news/providers/theme_provider.dart';
-import 'package:news/routes/app_routes.dart';
-import 'package:news/screens/category_details_screen/category_details_screen.dart';
+import 'package:news/screens/home_screen/widgets/category_details_screen.dart';
+import 'package:news/screens/home_screen/widgets/categories_content.dart';
 import 'package:news/widgets/app_drawer.dart';
-import 'package:news/widgets/category_card.dart';
 import 'package:news/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -81,52 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               categories: categories,
               onCategoryClicked: onCategoryClicked,
             )
-          : CategoryDetailsScreen(category: selectedCategory!),
-    );
-  }
-}
-
-class CategoriesContent extends StatelessWidget {
-  const CategoriesContent({
-    super.key,
-    required this.theme,
-    required this.categories,
-    required this.onCategoryClicked,
-  });
-  final void Function(CategoryModel category) onCategoryClicked;
-  final ThemeData theme;
-  final List<CategoryModel> categories;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        spacing: 16,
-        crossAxisAlignment: .start,
-        children: [
-          Text(
-            "Good Morning\nHere is Some News For You",
-            style: GoogleFonts.inter(
-              fontSize: 24,
-              fontWeight: .w500,
-              color: theme.primaryColor,
-            ),
-          ),
-          Expanded(
-            child: ListView.separated(
-              itemBuilder: (BuildContext context, int index) => CategoryCard(
-                category: categories[index],
-                index: index,
-                onTap: () => onCategoryClicked,
-              ),
-              separatorBuilder: (BuildContext context, int index) => Gap(16),
-              itemCount: categories.length,
-              shrinkWrap: true,
-            ),
-          ),
-        ],
-      ),
+          : CategoryDetails(category: selectedCategory!),
     );
   }
 }
