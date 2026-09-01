@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/constants/app_assets.dart';
+import 'package:news/constants/app_colors.dart';
 import 'package:news/screens/search_screen/search_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -10,6 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return AppBar(
       title: Text(
         title,
@@ -22,7 +24,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               MaterialPageRoute(builder: (context) => const SearchScreen()),
             );
           },
-          icon: SvgPicture.asset(AppAssets.searchIc),
+          icon: SvgPicture.asset(
+            AppAssets.searchIc,
+            colorFilter: ColorFilter.mode(theme.primaryColor, .srcIn),
+          ),
         ),
       ],
     );
