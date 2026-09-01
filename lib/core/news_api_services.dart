@@ -31,7 +31,7 @@ class NewsApiServices {
     return articlesResponse.articles;
   }
 
-  // Default list shown on the search screen before the user types anything.
+  // search screen defult articlesssssssssss
   Future<List<ArticleModel>> getTopHeadlines() async {
     final response = await dio.get(
       "https://newsapi.org/v2/top-headlines",
@@ -44,7 +44,7 @@ class NewsApiServices {
     return articlesResponse.articles;
   }
 
-  // Full-text search across all articles for the given query.
+  // search screen search by quary articlesssssssss
   Future<List<ArticleModel>> searchArticles(String query) async {
     final response = await dio.get(
       "https://newsapi.org/v2/everything",

@@ -42,51 +42,45 @@ class NewsItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (article.urlToImage != null)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: article.urlToImage != null
-                      ? Image.network(
-                          article.urlToImage!,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return AspectRatio(
-                              aspectRatio: 16 / 9,
-                              child: Center(
-                                child:
-                                    const CircularProgressIndicator.adaptive(),
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) =>
-                              AspectRatio(
-                                aspectRatio: 16 / 9,
-                                child: Container(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.surfaceContainerHighest,
-                                  child: const Icon(
-                                    Icons.broken_image_outlined,
-                                  ),
-                                ),
-                              ),
-                        )
-                      : AspectRatio(
-                          aspectRatio: 16 / 9,
-                          child: Container(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.surfaceContainerHighest,
-                            child: const Icon(
-                              Icons.image_not_supported_outlined,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: article.urlToImage != null
+                    ? Image.network(
+                        article.urlToImage!,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: Center(
+                              child: const CircularProgressIndicator.adaptive(),
                             ),
-                          ),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) =>
+                            AspectRatio(
+                              aspectRatio: 16 / 9,
+                              child: Container(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.surfaceContainerHighest,
+                                child: const Icon(Icons.broken_image_outlined),
+                              ),
+                            ),
+                      )
+                    : AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Container(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.surfaceContainerHighest,
+                          child: const Icon(Icons.image_not_supported_outlined),
                         ),
-                ),
+                      ),
               ),
+            ),
             Padding(
               padding: const EdgeInsets.all(12),
               child: Column(
