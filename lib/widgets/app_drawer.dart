@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/constants/app_colors.dart';
 import 'package:news/providers/theme_provider.dart';
+import 'package:news/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -46,7 +47,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
-                    widget.onGoToHome();
+                    Navigator.popAndPushNamed(context, AppRoutes.homeScreen);
                   },
                   child: Row(
                     children: [

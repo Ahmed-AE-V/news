@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/constants/app_assets.dart';
 import 'package:news/models/category_model.dart';
 import 'package:news/providers/theme_provider.dart';
+import 'package:news/routes/app_routes.dart';
+import 'package:news/screens/category_details_screen/category_details_screen.dart';
 import 'package:news/widgets/app_drawer.dart';
 import 'package:news/widgets/category_card.dart';
+import 'package:news/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,6 +20,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   CategoryModel? selectedCategory;
+
+  void onCategoryClicked(CategoryModel category) {
+    setState(() {
+      selectedCategory = category;
+    });
+  }
+
+  @override
   @override
   Widget build(BuildContext context) {
     bool isDark = context.watch<ThemeProvider>().isDarkMode;
@@ -62,50 +72,60 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
       ),
-      appBar: AppBar(
-        title: Text(
-          selectedCategory == null ? "Home" : selectedCategory!.name,
-          style: GoogleFonts.inter(fontSize: 20, fontWeight: .w500),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(AppAssets.searchIc),
+      appBar: CustomAppBar(
+        title: selectedCategory == null ? "Home" : selectedCategory!.name,
+      ),
+      body: selectedCategory == null
+          ? CategoriesContent(
+              theme: theme,
+              categories: categories,
+              onCategoryClicked: onCategoryClicked,
+            )
+          : CategoryDetailsScreen(category: selectedCategory!),
+    );
+  }
+}
+
+class CategoriesContent extends StatelessWidget {
+  const CategoriesContent({
+    super.key,
+    required this.theme,
+    required this.categories,
+    required this.onCategoryClicked,
+  });
+  final void Function(CategoryModel category) onCategoryClicked;
+  final ThemeData theme;
+  final List<CategoryModel> categories;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: Column(
+        spacing: 16,
+        crossAxisAlignment: .start,
+        children: [
+          Text(
+            "Good Morning\nHere is Some News For You",
+            style: GoogleFonts.inter(
+              fontSize: 24,
+              fontWeight: .w500,
+              color: theme.primaryColor,
+            ),
+          ),
+          Expanded(
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int index) => CategoryCard(
+                category: categories[index],
+                index: index,
+                onTap: () => onCategoryClicked,
+              ),
+              separatorBuilder: (BuildContext context, int index) => Gap(16),
+              itemCount: categories.length,
+              shrinkWrap: true,
+            ),
           ),
         ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          spacing: 16,
-          crossAxisAlignment: .start,
-          children: [
-            Text(
-              "Good Morning\nHere is Some News For You",
-              style: GoogleFonts.inter(
-                fontSize: 24,
-                fontWeight: .w500,
-                color: theme.primaryColor,
-              ),
-            ),
-            Expanded(
-              child: ListView.separated(
-                itemBuilder: (BuildContext context, int index) => CategoryCard(
-                  category: categories[index],
-                  index: index,
-                  onTap: () {
-                    setState(() {
-                      selectedCategory = categories[index];
-                    });
-                  },
-                ),
-                separatorBuilder: (BuildContext context, int index) => Gap(16),
-                itemCount: categories.length,
-                shrinkWrap: true,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

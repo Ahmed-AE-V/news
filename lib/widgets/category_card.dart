@@ -4,7 +4,7 @@ import 'package:news/models/category_model.dart';
 
 class CategoryCard extends StatelessWidget {
   final CategoryModel category;
-  final void Function()? onTap;
+  final VoidCallback onTap;
   final int index;
 
   const CategoryCard({
